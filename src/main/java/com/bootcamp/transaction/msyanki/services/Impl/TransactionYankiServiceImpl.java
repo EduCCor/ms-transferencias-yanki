@@ -26,16 +26,23 @@ public class TransactionYankiServiceImpl implements ITransactionYankiService {
 
     @Override
     public Mono<TransactionYanki> findById(String s) {
-        return null;
+        return transactionYankieRepository.findById(s);
     }
 
     @Override
     public Mono<Void> delete(TransactionYanki o) {
-        return null;
+        return transactionYankieRepository.delete(o);
     }
 
     @Override
     public Mono<TransactionYanki> update(TransactionYanki o) {
-        return null;
+        return transactionYankieRepository.save(o);
+    }
+
+    @Override
+    public Flux<TransactionYanki> findByCustomerIdentityNumber(String id) {
+        return transactionYankieRepository.findAll().filter(c -> {
+            return c.getCustomerIdentityNumber().equals(id);
+        });
     }
 }

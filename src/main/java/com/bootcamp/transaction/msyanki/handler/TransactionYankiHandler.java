@@ -25,6 +25,19 @@ public class TransactionYankiHandler {
                 .body(transactionYankiService.findAll(), TransactionYanki.class);
     }
 
+    public Mono<ServerResponse> findById(ServerRequest request){
+        String yankiNumber = request.pathVariable("id");
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                .body(transactionYankiService.findById(yankiNumber), TransactionYanki.class);
+    }
+
+    public Mono<ServerResponse> findByCustomerIdentityNumber(ServerRequest request) {
+        String yankiNumber = request.pathVariable("customerIdentityNumber");
+        LOGGER.info("El CustomerAccountNumber es " + yankiNumber);
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+                .body(transactionYankiService.findByCustomerIdentityNumber(yankiNumber), TransactionYanki.class);
+    }
+
     public Mono<ServerResponse> newTransactionYanki(ServerRequest request){
 
         Mono<TransactionYanki> transactionMono = request.bodyToMono(TransactionYanki.class);

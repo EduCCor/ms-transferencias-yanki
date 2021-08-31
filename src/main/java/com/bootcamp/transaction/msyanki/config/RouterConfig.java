@@ -15,7 +15,9 @@ public class RouterConfig {
     @Bean
     public RouterFunction<ServerResponse> routes(TransactionYankiHandler transactionYankiHandler){
 
-        return route(GET("/api/transaction-yanki"), transactionYankiHandler::findAll)
-                .andRoute(POST("/api/transaction-yanki"), transactionYankiHandler::newTransactionYanki);
+        return route(GET("/api/transaction-yanki"), transactionYankiHandler::findAll).
+                andRoute(GET("/api/transaction-yanki/{id}"), transactionYankiHandler::findById).
+                andRoute(GET("/api/transaction-yanki/number/{customerIdentityNumber}"), transactionYankiHandler::findByCustomerIdentityNumber).
+                andRoute(POST("/api/transaction-yanki"), transactionYankiHandler::newTransactionYanki);
     }
 }
